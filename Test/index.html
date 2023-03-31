@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tester html</title>
+</head>
+<body>
+  <script>
+    const ws = new WebSocket("ws://localhost:4000")
+
+    ws.onopen = function() {
+      console.log("open...")
+      let str = ""
+      for (let i = 10; i > 0; i--) {
+        str += "h"
+      }
+      ws.send(str)
+    }
+
+    ws.onclose = function() {
+      console.log("close...")
+    }
+
+    ws.onerror = function() {
+      console.log("error...")
+    }
+
+    ws.onmessage = function(evt) {
+      console.log(evt)
+    }
+  </script>
+</body>
+</html>

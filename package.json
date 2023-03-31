@@ -1,0 +1,23 @@
+{
+  "name": "-workdiary",
+  "version": "1.0.0",
+  "description": "工作中遇到的问题、学习的知识总结",
+  "scripts": {
+    "003": "nodemon ./2023/003-websocket实现.js" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qwertyuiop1b/-WorkDiary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qwertyuiop1b/-WorkDiary/issues"
+  },
+  "homepage": "https://github.com/qwertyuiop1b/-WorkDiary#readme",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "nodemon": "^2.0.22"
+  }
+}
