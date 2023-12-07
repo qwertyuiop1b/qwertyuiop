@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字滚动效果</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      background-color: aquamarine;
+      border-radius: 10px;
+      height: 50px;
+      overflow: hidden;
+    }
+    .right {
+      position: relative;
+      margin-left: 30px;
+      flex: 1;
+      height: 100%;
+      color: blueviolet;
+    }
+
+    .right .item-wrapper {
+      position: absolute;
+      top: 0;
+    }
+
+    .right .item {
+      height: 100%;
+      line-height: 50px;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="left">Language</div>
+    <ul class="right">
+      <ul class="item-wrapper">
+        <li class="item">01: Javascript</li>
+        <li class="item">02: C++/C</li>
+        <li class="item">03: Golang</li>
+        <li class="item">04: Python</li>
+        <li class="item">01: Javascript</li>
+      </ul>
+    </ul>
+  </div>
+  
+  <script>
+    // 无缝连接 最后面要添加第一个元素
+    const rightEl = document.querySelector(".item-wrapper");
+    const allHeight = document.querySelector(".item-wrapper .item").getBoundingClientRect().height * 4;
+
+    let topDistance = 0;
+
+    setInterval(() => {
+      if (topDistance <= allHeight * -1) {
+        topDistance = 0;
+      }
+      topDistance -= 2;
+      // rightEl.style.top = `${topDistance}px`;
+      rightEl.style.setProperty("top", `${topDistance}px`)
+      
+    }, 100);
+    
+
+
+  </script>
+</body>
+</html>
