@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字滚动效果</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      background-color: aquamarine;
+      border-radius: 10px;
+      height: 50px;
+      overflow: hidden;
+    }
+    .right {
+      position: relative;
+      margin-left: 30px;
+      flex: 1;
+      height: 100%;
+      color: blueviolet;
+    }
+
+    .right .item-wrapper {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      overflow: hidden;
+    }
+
+    .right .item {
+      height: 100%;
+      line-height: 50px;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="left">Language</div>
+    <ul class="right">
+      <ul class="item-wrapper">
+        <li class="item">01: Javascript</li>
+        <li class="item">02: C++/C</li>
+        <li class="item">03: Golang</li>
+        <li class="item">04: Python</li>
+      </ul>
+    </ul>
+  </div>
+  
+  <script>
+    (function() {
+      // 添加一个元素到最后
+      function appendLastElt() {
+      const listElt = document.querySelector(".item-wrapper");
+        if (listElt.children) {
+          const liElt = listElt.firstElementChild.cloneNode(true);
+          listElt.appendChild(liElt);
+        }
+      }
++
+      appendLastElt();
+
+      const duration = 1500, itemHeight = 50;
+      const listElt = document.querySelector(".item-wrapper");
+      let curIdx = 0;
+
+      function moveToNextItem() {
+        const from = curIdx * itemHeight;
+        const to = (curIdx + 1) * itemHeight;
+
+        // 总时间500ms，一个间隔时间10ms;
+        const total = 500, stepTime = 10; stepDistance = (to - from) / (total / stepTime);
+        let timerId = setInterval(() => {
+          listElt.scrollTop += stepDistance;
+
+          if (listElt.scrollTop >= to) {
+            clearInterval(timerId);
+            curIdx++;
+            
+            if (curIdx === listElt.childElementCount - 1) {
+              listElt.scrollTop = 0;
+              curIdx = 0;
+            }
+          }
+        }, stepTime);
+        
+      }
+
+      setInterval(moveToNextItem, duration);
+
+    })();
+
+  </script>
+</body>
+</html>
