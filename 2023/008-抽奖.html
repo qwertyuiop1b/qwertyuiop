@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>008-抽奖</title>
+  <style>
+    *{padding: 0; margin: 0;}
+    .container {
+      margin: 50px auto;
+      display: flex;
+      width: 240px;
+      flex-wrap: wrap;
+    }
+    .item {
+      height: 80px;
+      font-size: 30px;
+      width: 80px;
+      border: 1px solid gray;
+      box-sizing: border-box;
+      text-align: center;
+      line-height: 80px;
+    }
+    .item.start {
+      cursor: pointer;
+    }
+    .item.start:hover {
+      background-color: aqua;
+    }
+    .item.active {
+      background-color: aquamarine;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="item" style="order: 0;">1</div>
+    <div class="item" style="order: 1;">2</div>
+    <div class="item" style="order: 2;">3</div>
+    <div class="item" style="order: 5;">4</div>
+    <div class="item" style="order: 9;">6</div>
+    <div class="item" style="order: 8;">7</div>
+    <div class="item" style="order: 7;">8</div>
+    <div class="item" style="order: 3;" >9</div>
+    <div class="item start" style="order: 4;">开始</div>
+  </div>
+</body>
+<script>
+  const startBtn = document.querySelector(".item.start");
+  const itemList = document.querySelectorAll(".item");
+  const NUMBER_OF_ITEM = 8;
+  let timerId = null
+  
+  
+
+  startBtn.addEventListener("click", function(evt) {
+    const times = Math.floor(Math.random() * 5 + 5)
+    console.log(times)
+    for (const item of itemList) {
+      item.classList.remove("active");
+    }
+    timerId && clearInterval(timerId);
+  
+    let currentIdx = 0; currentTime = 0;
+
+    itemList[currentIdx].classList.add("active");
+    timerId = setInterval(() => {
+      currentTime++;
+      if(currentIdx >= 0) {
+        itemList[currentIdx].classList.remove("active");
+      }
+      currentIdx = (currentIdx + 1) % NUMBER_OF_ITEM;
+      itemList[currentIdx].classList.add("active");
+      if (currentTime > times) {
+        clearInterval(timerId);
+      }
+    }, 500);
+  }, false)
+</script>
+</html>
