@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>005-手风琴效果</title>
+  <style>
+    *{margin: 0; padding: 0;}
+    li { list-style: none;}
+
+    .container {
+      margin: 50px;
+      width: 400px;
+      border: 1px solid gray;
+    }
+
+    .menu p {
+      height: 44px;
+      line-height: 44px;
+      background-color: azure;
+      cursor: pointer;
+      border-bottom: 1px solid grey;
+      user-select: none;
+    }
+
+    .menu .title .item {
+      height: 32px;
+      line-height: 32px;
+      background-color: #eeffee;
+    }
+
+    /* test-scale */
+    .test-scale {
+      width: 400px;
+      margin-left: 40px;
+      position: relative;
+    }
+    .test-scale p {
+      font-size: 18px;
+      padding: 8px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @keyframes toggleAni {
+      0% {
+        transform: scaleY(0);
+      }
+      80% {
+        transform: scaleY(1.1);
+      }
+      100% {
+        transform: scaleY(1);
+      }
+    }
+
+    /* .test-scale p:hover + .list {
+      transform: scaleY(1);
+    } */
+    .test-scale .items {
+      cursor: pointer;
+    }
+    .list {
+      border-radius: 16px;
+      background-color: aliceblue;
+      transform: scaleY(0);
+      position: absolute;
+      transform-origin: top;
+      /* transition: transform 0.3s; */
+    }
+
+    .test-scale .items:hover  .list {
+      animation-name: toggleAni;
+      animation-duration: 0.3s;
+      animation-timing-function: ease-in;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+  
+    .list li {
+      height: 44px;
+      line-height: 44px;
+      padding: 8px 50px;
+      border-bottom: 1px solid grey;
+    }
+    .list li:last-child {
+      border-bottom: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu">
+      <p>菜单1</p>
+      <ul class="title">
+        <li class="item">Item1-1</li>
+        <li class="item">Item1-2</li>
+        <li class="item">Item1-3</li>
+      </ul>
+    </div>
+    <div class="menu">
+      <p>菜单2</p>
+      <ul class="title">
+        <li class="item">Item2-1</li>
+        <li class="item">Item2-2</li>
+        <li class="item">Item2-3</li>
+      </ul>
+    </div>
+    <div class="menu">
+      <p>菜单3</p>
+      <ul class="title">
+        <li class="item">Item3-1</li>
+        <li class="item">Item3-2</li>
+        <li class="item">Item3-3</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="test-scale">
+    <div class="items">
+      Test Items
+      <ul class="list">
+        <li>Javascript1</li>
+        <li>Javascript2</li>
+        <li>Javascript3</li>
+        <li>Javascript4</li>
+        <li>Javascript5</li>
+      </ul>
+    </div>
+
+    <p>Test Item End</p>
+  </div>
+
+  <script>
+    (function() {
+      const pElts = document.querySelectorAll(".menu p");
+      const ulLists = document.querySelectorAll(".menu .title");
+
+      // 初始化
+      let curActiveIdx = -1;
+      for(const ulList of ulLists) {
+        ulList.style.setProperty("display", "none");
+      }
+
+      pElts.forEach((elt, index) => {
+        elt.addEventListener("click", function(evt) {
+          // console.log(elt.computedStyleMap().get("display"))
+          const displayValue = ulLists[index].style.getPropertyValue("display");
+
+          if (curActiveIdx >= 0) {
+            ulLists[curActiveIdx].style.setProperty("display", "none");
+          }
+
+          if (displayValue === "none") {
+            ulLists[index].style.setProperty("display", "block");
+            curActiveIdx = index;
+          } else {
+            ulLists[index].style.setProperty("display", "none");
+            curActiveIdx = -1;
+          }
+          
+        })
+      })
+    })();
+
+
+    
+  </script>
+</body>
+</html>
